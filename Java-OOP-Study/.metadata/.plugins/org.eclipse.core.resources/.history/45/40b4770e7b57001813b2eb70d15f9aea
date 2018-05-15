@@ -1,0 +1,14 @@
+package com.study.util;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class StringUtilTrimTest {
+
+	@Test
+	public void trim() {
+		assertEquals("qwer", StringUtil.trim("     qwer  "));
+	}
+
+}

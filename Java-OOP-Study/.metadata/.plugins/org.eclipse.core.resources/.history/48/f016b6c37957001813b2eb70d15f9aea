@@ -1,0 +1,16 @@
+package com.study.util;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class StringUtilTrimTest {
+
+	@Test
+	public void testTrim() {
+		String str = "   qwer   ";
+		StringUtil.trim(s)
+		fail("Not yet implemented");
+	}
+
+}
