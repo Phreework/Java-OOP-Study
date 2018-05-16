@@ -1,0 +1,15 @@
+package com.study.my;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MyStringTest {
+
+	@Test
+	public void testEqualsString() {
+		MyString str1 = new MyString("phree");
+		
+	}
+
+}

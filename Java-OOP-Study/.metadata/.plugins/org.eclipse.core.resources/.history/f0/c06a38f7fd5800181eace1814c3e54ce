@@ -1,0 +1,26 @@
+package com.study.util;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class StringUtilTest {
+
+	@Test
+	public void testTrim() {
+		assertEquals("qwer",StringUtil.trim("     qwer  "));
+		assertEquals("qwer",StringUtil.trim("qwer  "));
+		assertEquals("qwer",StringUtil.trim("     qwer"));
+	}
+
+	@Test
+	public void testEqual(){
+		assertEquals(true, StringUtil.equal("phree","phree"));
+		assertEquals(false, StringUtil.equal("phree","Phree"));
+		assertEquals(false, StringUtil.equal("phreeq","Phree"));
+		assertEquals(false, StringUtil.equal("phreeq","Phreeqw"));
+		assertEquals(false, StringUtil.equal("phreeq","Phreeq "));		
+	}
+
+}

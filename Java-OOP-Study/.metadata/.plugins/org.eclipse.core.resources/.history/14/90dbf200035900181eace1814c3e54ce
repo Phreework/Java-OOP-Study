@@ -1,0 +1,17 @@
+package com.study.my;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MyStringTest {
+
+	@Test
+	public void testEqualsString() {
+		MyString str1 = new MyString(new char[] {'p','h','r','e','e'});
+		MyString str2 = new MyString(new char[] {'P','h','r','e','e'});
+		str1.equalsString(str2);
+		
+	}
+
+}

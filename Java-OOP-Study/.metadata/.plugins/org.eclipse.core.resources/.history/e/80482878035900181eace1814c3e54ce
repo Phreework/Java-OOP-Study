@@ -1,0 +1,22 @@
+package com.study.my;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MyStringTest {
+
+	@Test
+	public void testEqualsString() {
+		//大小写
+		MyString str1 = new MyString(new char[] {'p','h','r','e','e'});
+		MyString str2 = new MyString(new char[] {'P','h','r','e','e'});
+		assertEquals(false, str1.equalsString(str2));
+		//str3比str4多
+		MyString str3 = new MyString(new char[] {'p','h','r','e','e','e'});
+		MyString str4 = new MyString(new char[] {'p','h','r','e','e'});
+		assertEquals(false, str1.equalsString(str2));
+		
+	}
+
+}

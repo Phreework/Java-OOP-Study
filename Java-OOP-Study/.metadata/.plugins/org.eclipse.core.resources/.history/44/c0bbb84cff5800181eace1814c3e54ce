@@ -1,0 +1,45 @@
+package com.study.my;
+
+class MyString {  
+    
+    char[] value;  
+    public MyString(char[] value) {  
+        this.value=value;  //通过构造方法将字符传入  
+    }  
+      
+      
+    public boolean equalsString(Object obj) {  
+        if(this==obj){  
+            return true;  
+        }  
+          
+        //若该对象是MyString类型的  
+        if(!obj instanceof MyString){  
+            MyString string =(MyString) obj;  
+            int n=this.value.length;  
+            if (n>string.value.length) {  //先判断长度的关系  
+                return false;  
+            }else if(n<string.value.length){  
+                return false;  
+            }else{   //若长度相等  
+                 char v1[] = this.value;  
+                 char v2[] = string.value;  
+                    int i = 0;  
+                    while (n-- != 0) {  //按照数组的每一位进行比较  
+                        if (v1[i] > v2[i]){  
+                            return false;  
+                        }else if(v1[i] < v2[i]){  
+                            return false;  
+                        }  
+                                  
+                        i++;  
+                    }  
+                    return true;  //若while循环正常结束，则说明相等，返回0  
+  
+            }  
+        }  
+        return false;  //若传入的不是MyString类型的对象  
+          
+    }  
+  
+}  

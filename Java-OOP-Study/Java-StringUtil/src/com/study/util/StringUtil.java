@@ -7,9 +7,24 @@ package com.study.util;
 public class StringUtil {
 
 	/**
+	 * 判断两个字符串是否完全相同
+	 * @param s1
+	 * @param s2
+	 * @return 是否相等
+	 */
+	public static boolean equal(String s1, String s2) {
+		char[] charArray1 = s1.toCharArray();
+		char[] charArray2 = s2.toCharArray();
+
+		if (charArray1.length !=  charArray2.length) return false;
+		for (int i = 0; i < charArray1.length; i++){ 				//遍历字符
+			if (charArray1[i] != charArray2[i]) return false;		//如果有任何一个字符不同，即可判断为不相等
+		}
+		return true;												
+	}
+	/**
 	 * 去除字符串头尾的空格，中间的空格保留
-	 * 
-	 * @Description: TODO 
+	 * @param s
 	 */
 	public static String trim(String s) {
 		int i = s.length();											// 字符串最后一个字符的位置
