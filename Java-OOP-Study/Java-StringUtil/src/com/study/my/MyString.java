@@ -50,12 +50,42 @@ class MyString {
 		return str;
 	}
 	
+	/**
+	 * 从字符串中截取一段字符串返回
+	 * @param beginIndex
+	 * @param endIndex
+	 * @return
+	 */
 	public char[] subString(int beginIndex,int endIndex) {
 		char[] str = new char[endIndex-beginIndex+1];
 		for(int i = 0; i <str.length; i++) {
 			str[i] = value[beginIndex + i];
 		}
 		return str;
+	}
+	
+	/**
+	 * 把copyStr的一段字符串插入到str中
+	 * @param str
+	 * @param copyStr
+	 * @param beginIndex
+	 * @param endIndex
+	 * @param insertIndex
+	 */
+	public static void strCopy(MyString str, MyString copyStr, int beginIndex, int endIndex, int insertIndex) {
+		char[] insertStr = copyStr.subString(beginIndex, endIndex);
+		char[] tempStr = new char[insertStr.length + str.value.length];
+		int insertLength = endIndex - beginIndex + 1;
+		for (int i = 0,j = 0; i < tempStr.length; i++) {
+			if(i <= insertIndex) {
+				tempStr[i] = str.value[i];	
+			} else if ((i > insertIndex) && (i-insertIndex <= insertLength)) {
+				tempStr[i] = insertStr[j++];
+			} else {
+				tempStr[i] = str.value[i-insertLength];
+			}
+		}
+		str.value = tempStr;
 	}
 
 }

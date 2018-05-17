@@ -49,4 +49,16 @@ public class MyStringTest {
 		MyString arrayStr = new MyString(str.subString(1, 3));
 		assertEquals(true, finalStr.equalsString(arrayStr));
 	}
+	
+	@Test
+	public void testStrCopy() {
+		//把str2中的一段拷贝进str，结果应该为phtesree,用assertEquals检验
+		MyString str = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		MyString str2 = new MyString(new char[] { 't', 't', 'e', 's', 't' });
+		MyString finalStr = new MyString(new char[] { 'p', 'h', 't', 'e', 's', 'r', 'e', 'e' });
+		MyString.strCopy(str, str2, 1, 3, 1);
+		
+		assertEquals(true,finalStr.equalsString(str));
+		
+	}
 }
