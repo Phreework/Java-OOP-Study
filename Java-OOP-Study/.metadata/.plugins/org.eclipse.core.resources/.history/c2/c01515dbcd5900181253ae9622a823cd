@@ -1,0 +1,7 @@
+package com.study.planeWar;
+
+import javax.swing.JPanel;
+
+public class PlaneGame extends JPanel{
+
+}

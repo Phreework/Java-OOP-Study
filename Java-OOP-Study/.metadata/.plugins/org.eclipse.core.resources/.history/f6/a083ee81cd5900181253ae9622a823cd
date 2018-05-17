@@ -1,0 +1,5 @@
+package com.study.planeWar;
+
+public class Bee extends Enemy implements Award {
+
+}

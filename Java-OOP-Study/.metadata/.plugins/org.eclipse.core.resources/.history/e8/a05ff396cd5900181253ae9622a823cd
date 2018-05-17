@@ -1,0 +1,18 @@
+public abstract class FlyObject implements MoveBehaviour {
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private BufferedImage sprite;
+    private int speed;
+
+    public abstract boolean isOutScreen();
+
+    public void step(){
+    }
+
+    public boolean isShootBy(Bullet bullet){
+        return false;
+    }
+
+}

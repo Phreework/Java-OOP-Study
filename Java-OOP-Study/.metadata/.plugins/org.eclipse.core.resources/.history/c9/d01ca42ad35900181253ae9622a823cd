@@ -1,0 +1,30 @@
+package com.study.planeWar;
+
+import java.awt.image.BufferedImage;
+
+public class Player extends FlyObject {
+    private BufferedImage[] sprites;
+    private int index;
+    private int doubleFire;
+    private int life;
+
+
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOutScreen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void step() {
+		fly();
+		
+	}
+
+}

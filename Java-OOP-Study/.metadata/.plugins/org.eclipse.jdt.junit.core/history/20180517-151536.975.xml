@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="MyStringTest" project="Java-StringUtil" tests="4" started="4" failures="0" errors="0" ignored="0">
-  <testsuite name="com.study.my.MyStringTest" incomplete="true">
-    <testcase name="testEqualsString" classname="com.study.my.MyStringTest" time="0.0"/>
-    <testcase name="testArraysToString" classname="com.study.my.MyStringTest" time="0.0"/>
-    <testcase name="testSubString" classname="com.study.my.MyStringTest" time="0.0"/>
-    <testcase name="testStrCopy" classname="com.study.my.MyStringTest" incomplete="true"/>
-  </testsuite>
-</testrun>

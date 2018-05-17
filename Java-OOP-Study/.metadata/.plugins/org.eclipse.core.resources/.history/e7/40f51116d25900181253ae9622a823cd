@@ -1,0 +1,22 @@
+package com.study.planeWar;
+
+import java.awt.image.BufferedImage;
+
+public abstract class FlyObject implements MoveBehaviour {
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int height;
+    protected BufferedImage sprite;
+    protected int speed;
+
+    public abstract boolean isOutScreen();
+
+    public void step(){
+    }
+
+    public boolean isShootBy(Bullet bullet){
+        return false;
+    }
+
+}

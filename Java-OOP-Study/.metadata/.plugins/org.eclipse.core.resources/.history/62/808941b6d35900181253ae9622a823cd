@@ -1,0 +1,43 @@
+package com.study.planeWar;
+
+import java.awt.image.BufferedImage;
+
+/**
+ * 这是玩家控制的飞机类
+ * @author Phree
+ *
+ */
+public class Player extends FlyObject {
+    private BufferedImage[] sprites;
+    private int index;
+    private int doubleFire;
+    private int life;
+
+    public Hero() {
+    	life = 3;   //初始3条命
+        doubleFire = 0;   //初始火力为0
+        sprites = new BufferedImage[]{PlaneGame.hero0, PlaneGame.hero1}; //英雄机图片数组
+        sprite = PlaneGame.hero0;   //初始为hero0图片
+        width = sprite.getWidth();
+        height = sprite.getHeight();
+        x = 150;
+        y = 400;
+    }
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOutScreen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void step() {
+		fly();	
+	}
+
+}

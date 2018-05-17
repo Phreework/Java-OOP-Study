@@ -1,0 +1,8 @@
+package com.study.planeWar;
+
+public abstract class Enemy extends FlyObject {
+    protected int score;
+
+    public abstract int getScore();
+
+}

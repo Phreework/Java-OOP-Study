@@ -1,0 +1,3 @@
+public class Bee extends Enemy implements Award {
+
+}

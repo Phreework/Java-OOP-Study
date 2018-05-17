@@ -1,0 +1,15 @@
+public class NormalEnemy extends Enemy {
+
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOutScreen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

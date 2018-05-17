@@ -1,0 +1,24 @@
+import java.awt.image.BufferedImage;
+
+public class Player extends FlyObject {
+    private BufferedImage[] sprites;
+    private int index;
+    private int doubleFire;
+    private int life;
+
+    public void operation1(){
+    }
+
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOutScreen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
