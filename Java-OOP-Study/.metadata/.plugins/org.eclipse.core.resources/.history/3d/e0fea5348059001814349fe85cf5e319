@@ -1,0 +1,36 @@
+package com.study.my;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MyStringTest {
+
+	@Test
+	public void testEqualsString() {
+		// 传入自己
+		MyString str = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		assertEquals(true, str.equalsString(str));
+		// 大小写
+		MyString str1 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		MyString str2 = new MyString(new char[] { 'P', 'h', 'r', 'e', 'e' });
+		assertEquals(false, str1.equalsString(str2));
+		// str3比str4多
+		MyString str3 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e', 'e' });
+		MyString str4 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		assertEquals(false, str3.equalsString(str4));
+		// str5比str6少
+		MyString str5 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		MyString str6 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e', 'e' });
+		assertEquals(false, str5.equalsString(str6));
+
+		// 相等
+		MyString str7 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		MyString str8 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		assertEquals(true, str7.equalsString(str8));
+		
+		assertEquals(new char[]{'p',',','h',',','r',',' ,'e',',', 'e'}, str.arraysToString());
+
+	}
+
+}

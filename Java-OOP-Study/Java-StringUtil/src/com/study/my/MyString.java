@@ -8,6 +8,11 @@ class MyString {
 		this.value = value; 
 	}
 
+	/**
+	 * 判断字符串是否相等
+	 * @param obj
+	 * @return
+	 */
 	public boolean equalsString(Object obj) {
 
 		if (this == obj) return true; 					// 若是自身
@@ -27,6 +32,30 @@ class MyString {
 		}
 		return true; 									// 相等
 
+	}
+	
+	/**
+	 * 输出成[a,b,c,d]形式
+	 * @return
+	 */
+	public char[] arraysToString() {
+		char[] str = new char[value.length*2 + 1];
+		str[0] = '[';
+		str[str.length - 1] = ']';
+		for(int i = 0; i<value.length; i++) {
+			str[i*2+1] = value[i];
+			if(i != value.length-1)
+				str[i*2+2] = ',';
+		}
+		return str;
+	}
+	
+	public char[] subString(int beginIndex,int endIndex) {
+		char[] str = new char[endIndex-beginIndex+1];
+		for(int i = 0; i <str.length; i++) {
+			str[i] = value[beginIndex + i];
+		}
+		return str;
 	}
 
 }

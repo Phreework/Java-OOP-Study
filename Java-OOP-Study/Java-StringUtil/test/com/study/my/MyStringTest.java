@@ -28,7 +28,25 @@ public class MyStringTest {
 		MyString str7 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
 		MyString str8 = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
 		assertEquals(true, str7.equalsString(str8));
+		
 
 	}
 
+	@Test
+	public void testArraysToString() {
+		//输出成[a,b,c,d]形式
+		MyString str = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		MyString finalStr = new MyString(new char[]{'[','p',',','h',',','r',',' ,'e',',', 'e',']'});
+		MyString arrayStr = new MyString(str.arraysToString());
+		assertEquals(true, finalStr.equalsString(arrayStr));
+	}
+	
+	@Test 
+	public void testSubString() {
+		//截取一段字符串
+		MyString str = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
+		MyString finalStr = new MyString(new char[] {  'h', 'r', 'e' });
+		MyString arrayStr = new MyString(str.subString(1, 3));
+		assertEquals(true, finalStr.equalsString(arrayStr));
+	}
 }
