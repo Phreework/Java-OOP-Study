@@ -1,0 +1,15 @@
+package com.study.innerClass;
+
+public class InnerClassDemo {
+
+	public static void main(String[] args) {
+		
+	}
+}
+
+class Mama {
+	//ÄÚ²¿Àà
+	class Baby{
+		
+	}
+}

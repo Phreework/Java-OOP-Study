@@ -78,13 +78,14 @@ class MyString {
 	 * @param insertIndex
 	 */
 	public static void strCopy(MyString str, MyString copyStr, int beginIndex, int endIndex, int insertIndex) {
+		
 		char[] insertStr = copyStr.subString(beginIndex, endIndex);
 		char[] tempStr = new char[insertStr.length + str.value.length];
 		int insertLength = endIndex - beginIndex + 1;
 		for (int i = 0,j = 0; i < tempStr.length; i++) {
-			if(i <= insertIndex) {
+			if(i < insertIndex) {
 				tempStr[i] = str.value[i];	
-			} else if ((i > insertIndex) && (i-insertIndex <= insertLength)) {
+			} else if ((i >= insertIndex) && (i-insertIndex < insertLength)) {
 				tempStr[i] = insertStr[j++];
 			} else {
 				tempStr[i] = str.value[i-insertLength];

@@ -1,0 +1,61 @@
+package com.study.guessGame;
+
+import java.util.Random;
+
+public class GuessNumberGame {
+
+	public static void main(String[] args) {
+		printStr();
+	}
+
+	public static String run() {
+		//init
+		char[] str = new char[5];
+		char[] userStr = new char[5];
+		char[] all = new char[26];
+		boolean[] flag = new boolean[all.length];
+		String result = "--------游戏开始--------/n----用户键入五个字母"; 
+		
+		getAllAlphabet(all);
+
+		getFiveRandomChar(str, all, flag);
+		
+		userInputCharArray();
+		
+		compareCharArray();
+		
+		return result;
+	}
+
+	private static void compareCharArray() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void userInputCharArray() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void getFiveRandomChar(char[] str, char[] all, boolean[] flag) {
+		Random ran = new Random();
+		for (int i = 0; i < str.length; i++) {
+			int index;
+			do {
+				index = ran.nextInt(all.length);
+			} while (flag[index]);
+			flag[index] = true;
+			str[i] = all[index];
+		}
+	}
+
+	private static void getAllAlphabet(char[] all) {
+		for (int i = 0, num = 65; i < all.length; i++, num++) {
+			all[i] = (char) num;
+		}
+	}
+
+	public static void printStr() {
+		System.out.println(getStr());
+	}
+}

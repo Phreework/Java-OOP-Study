@@ -1,0 +1,21 @@
+package com.study.innerClass;
+
+public class InnerClassDemo {
+
+	public static void main(String[] args) {
+		Mama mama = new Mama();
+//		Baby baby = new Baby();内部类对外不具备可见性
+		System.out.println(mama.name);
+		System.out.println(mama.Baby.);
+	}
+}
+
+//外部类
+class Mama {
+	String name = "谭亚琪";
+	Baby b = new Baby();
+	//内部类
+	class Baby{
+		String name = "陈亚亚";
+	}
+}

@@ -10,3 +10,6 @@
 1526474685632	Delete element
 1526565854024	Rename resource 'hero0.png'
 1526565865262	Rename resource 'hero1.png'
+1526642730665	Extract method 'getAllAlphabet'
+1526642773907	Extract method 'getFiveRandomChar'
+1526646248349	Extract method 'printResult'

@@ -1,0 +1,36 @@
+package com.study.guessGame;
+
+import java.util.Random;
+
+public class GuessNumberGame {
+
+	public static void main(String[] args) {
+		printStr();
+	}
+	
+	public static char[] getStr() {
+		char[] str = new char[5];
+		
+		char[] all = new char[26];
+		
+		boolean[] flag = new boolean[all.length];
+		for (int i = 0,num = 65; i < all.length; i++,num++) {
+			all[i] = (char)num;
+		}
+		Random ran = new Random();
+		for (int i=0; i<str.length;i++) {
+			int index;
+			do {
+			index = ran.nextInt(all.length);
+			flag[index] = true;
+			}while(flag[index]);
+			
+			str[i] = all[index];
+		}
+		return all;
+	}
+	
+	public static void printStr() {
+		System.out.println(getStr());
+	}
+}

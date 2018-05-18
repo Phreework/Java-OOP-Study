@@ -1,0 +1,5 @@
+public interface UnionPay {
+
+    public void getMoney();
+
+}

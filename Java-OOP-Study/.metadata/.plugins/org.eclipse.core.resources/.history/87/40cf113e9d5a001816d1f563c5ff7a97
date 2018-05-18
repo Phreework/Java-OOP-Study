@@ -1,0 +1,17 @@
+package com.study.innerClass;
+
+public class AnonymousInnerClassDemo {
+public static void main(String[] args) {
+	Inner1 i1 = new Inner1Imp1();
+	
+}
+
+}
+
+interface Inner1{
+	
+}
+
+class Inner1Imp1 implements Inner1{
+	
+}

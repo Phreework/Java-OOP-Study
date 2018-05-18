@@ -1,0 +1,29 @@
+package com.study.innerClass;
+
+public class InnerClassDemo {
+
+	public static void main(String[] args) {
+		Mama mama = new Mama();
+//		Baby baby = new Baby();内部类对外不具备可见性
+		mama.Baby baby = new Baby();
+		System.out.println(mama.name);
+		System.out.println(mama.baby.name);
+	}
+}
+
+//内部类可访问外部类，外部类不可访问内部类成员
+
+//外部类
+class Mama {
+	String name = "谭亚琪";
+	Baby baby = new Baby();
+	//内部类
+	class Baby{
+		String name = "陈亚亚";
+		void sayHi() {
+			System.out.println(name);
+			System.out.println(this.name);
+			System.out.println(Mama.this.name);
+		}
+	}
+}

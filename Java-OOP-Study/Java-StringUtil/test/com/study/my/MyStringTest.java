@@ -58,10 +58,10 @@ public class MyStringTest {
 	
 	@Test
 	public void testStrCopy() {
-		//把str2中的一段拷贝进str，结果应该为phtesree,用assertEquals检验
+		//把str2中的一段拷贝进str，结果应该为pteshree,用assertEquals检验
 		MyString str = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
 		MyString str2 = new MyString(new char[] { 't', 't', 'e', 's', 't' });
-		MyString finalStr = new MyString(new char[] { 'p', 'h', 't', 'e', 's', 'r', 'e', 'e' });
+		MyString finalStr = new MyString(new char[] { 'p', 't', 'e', 's', 'h', 'r', 'e', 'e' });
 		
 		System.out.println("-----------字符串拷贝测试-------------");
 		System.out.println("字符串1:-------------------------------");
@@ -70,7 +70,7 @@ public class MyStringTest {
 		System.out.println(str2.value);
 		
 		MyString.strCopy(str, str2, 1, 3, 1);
-		System.out.println("把字符串2中第二至第四个字符拷贝进字符串第二位字符后:---------------------------");
+		System.out.println("把字符串2中第二至第四个字符拷贝进字符串第二位字符的位置:---------------------------");
 		System.out.println(str.value);
 		
 		assertEquals(true,finalStr.equalsString(str));

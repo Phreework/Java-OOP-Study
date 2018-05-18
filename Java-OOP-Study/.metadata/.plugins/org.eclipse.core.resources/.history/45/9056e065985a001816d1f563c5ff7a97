@@ -1,0 +1,6 @@
+package com.study.ATM;
+
+public class ATMDemo {
+	ATM atm = new ATM();
+	ICBC card1 = new ICBC();
+}
