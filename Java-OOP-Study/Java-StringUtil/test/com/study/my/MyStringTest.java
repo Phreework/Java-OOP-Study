@@ -38,6 +38,12 @@ public class MyStringTest {
 		MyString str = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
 		MyString finalStr = new MyString(new char[]{'[','p',',','h',',','r',',' ,'e',',', 'e',']'});
 		MyString arrayStr = new MyString(str.arraysToString());
+		System.out.println("------------输出形式测试--------------");
+		System.out.println("原数组-------------------------------");
+		System.out.println(str.value);
+		System.out.println("操作后数组---------------------------");
+		System.out.println(arrayStr.value);
+		
 		assertEquals(true, finalStr.equalsString(arrayStr));
 	}
 	
@@ -56,7 +62,16 @@ public class MyStringTest {
 		MyString str = new MyString(new char[] { 'p', 'h', 'r', 'e', 'e' });
 		MyString str2 = new MyString(new char[] { 't', 't', 'e', 's', 't' });
 		MyString finalStr = new MyString(new char[] { 'p', 'h', 't', 'e', 's', 'r', 'e', 'e' });
+		
+		System.out.println("-----------字符串拷贝测试-------------");
+		System.out.println("字符串1:-------------------------------");
+		System.out.println(str.value);
+		System.out.println("字符串2:-------------------------------");
+		System.out.println(str2.value);
+		
 		MyString.strCopy(str, str2, 1, 3, 1);
+		System.out.println("把字符串2中第二至第四个字符拷贝进字符串第二位字符后:---------------------------");
+		System.out.println(str.value);
 		
 		assertEquals(true,finalStr.equalsString(str));
 		
