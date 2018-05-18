@@ -17,22 +17,15 @@ public static void main(String[] args) {
 			System.out.println(name);
 		}
 	};
-	i2.sayHi();
 	
 }
 
 }
 
 interface Inner1{
-	public void sayHi();
+	
 }
 
 class Inner1Imp1 implements Inner1{
-
-	@Override
-	public void sayHi() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
