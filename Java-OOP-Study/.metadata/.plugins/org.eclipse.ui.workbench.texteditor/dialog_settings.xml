@@ -2,28 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Award" key="selection"/>
-		<item value="false" key="casesensitive"/>
+		<item value="enemys" key="selection"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="false" key="wholeword"/>
+		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="flyings"/>
+			<item value="enemys"/>
+			<item value="game"/>
+			<item value="intervel"/>
 			<item value="Award"/>
 			<item value="outOfBounds"/>
 			<item value="getImage"/>
 			<item value="player0"/>
-			<item value="FlyingObject"/>
-			<item value="hero"/>
-			<item value="ShootGame"/>
-			<item value="arrayOfChar"/>
 		</list>
 		<list key="replacehistory">
+			<item value="enemys"/>
+			<item value="planegame"/>
+			<item value="interval"/>
 			<item value="isOutScreen"/>
 			<item value="getSprite"/>
 			<item value="FlyObject"/>
 			<item value="player"/>
 			<item value="PlaneGame"/>
-			<item value="charArray"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

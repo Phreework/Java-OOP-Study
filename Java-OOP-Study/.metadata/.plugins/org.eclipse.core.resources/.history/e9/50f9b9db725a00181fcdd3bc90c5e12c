@@ -1,9 +1,5 @@
 package com.study.my;
-/**
- * 
- * @author Phree
- *
- */
+
 class MyString {
 
 	char[] value;
@@ -16,7 +12,6 @@ class MyString {
 	 * 判断字符串是否相等
 	 * @param obj
 	 * @return
-	 * @description 大量运用卫语句，更具可读性（ps：如果习惯的话。。。）
 	 */
 	public boolean equalsString(Object obj) {
 
