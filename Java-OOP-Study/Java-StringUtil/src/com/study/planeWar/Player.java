@@ -14,10 +14,10 @@ public class Player extends FlyObject {
     private int life;
 
     public Player() {
-    	life = 3;   //初始3条命
-        doubleFire = 0;   //初始火力为0
-        sprites = new BufferedImage[]{PlaneGame.player0, PlaneGame.player1}; //英雄机图片数组
-        sprite = PlaneGame.player0;   //初始为0
+    	life = 3;   
+        doubleFire = 0;   
+        sprites = new BufferedImage[]{PlaneGame.player0, PlaneGame.player1}; //图片数组
+        sprite = PlaneGame.player0;   
         width = sprite.getWidth();
         height = sprite.getHeight();
         x = 150;
@@ -38,33 +38,39 @@ public class Player extends FlyObject {
         this.doubleFire = doubleFire;
     }
 
-    /** 增加火力 */
+
     public void addDoubleFire(){
         doubleFire = 40;
     }
 
-    /** 增命 */
+
     public void addLife(){  
         life++;
     }
 
-    /** 减命 */
+
     public void subtractLife(){ 
         life--;
     }
 
-    /** 获取命 */
+
     public int getLife(){
         return life;
     }
 
-    /** 当前物体移动了一下，相对距离，x,y鼠标位置  */
+    /**
+     * 移动方法
+     * @param x
+     * @param y
+     */
     public void moveTo(int x,int y){   
         this.x = x - width/2;
         this.y = y - height/2;
     }
     
-    /** 发射子弹 */
+    /** 
+     * 发射子弹
+     */
     public Bullet[] shoot(){   
         int xStep = width/4;      //4半
         int yStep = 20;  //步
@@ -108,10 +114,10 @@ public class Player extends FlyObject {
         int y1 = other.y - this.height/2;                //y坐标最小距离
         int y2 = other.y + this.height/2 + other.height; //y坐标最大距离
 
-        int herox = this.x + this.width/2;               //英雄机x坐标中心点距离
-        int heroy = this.y + this.height/2;              //英雄机y坐标中心点距离
+        int playerx = this.x + this.width/2;               //英雄机x坐标中心点距离
+        int playery = this.y + this.height/2;              //英雄机y坐标中心点距离
 
-        return herox>x1 && herox<x2 && heroy>y1 && heroy<y2;   //区间范围内为撞上了
+        return playerx>x1 && playerx<x2 && playery>y1 && playery<y2;   //区间范围内为撞上了
     }
 
 }

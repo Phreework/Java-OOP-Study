@@ -19,3 +19,8 @@
 1526714452765	Delete element
 1526714670720	Delete element
 1526718302470	Extract method 'deleteEnemyBulletHited'
+1526725464501	Extract method 'addSuperEnemyChance'
+1526726363202	Extract method 'rankConfirmAction'
+1526729050100	Extract method 'deleteEnemyHited'
+1526729091372	Extract method 'getScoreAndAward'
+1526729538096	Extract method 'deleteBulletHited'

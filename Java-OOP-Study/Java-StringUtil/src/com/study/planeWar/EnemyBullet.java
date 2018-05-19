@@ -3,7 +3,9 @@ package com.study.planeWar;
 public class EnemyBullet extends FlyObject{
 
 
-	 /** 初始化数据 */
+	 /** 
+	  * 初始化数据
+	  */
     public EnemyBullet(int x,int y){
         this.x = x;
         this.y = y;

@@ -8,7 +8,9 @@ public class Bee extends Enemy implements Award {
 	private int ySpeed = 2; // y坐标移动速度
 	private int awardType; // 奖励类型
 
-	/** 初始化数据 */
+	/** 
+	 * 初始化数据
+	 */
 	public Bee() {
 		this.sprite = PlaneGame.bee;
 		width = sprite.getWidth();
