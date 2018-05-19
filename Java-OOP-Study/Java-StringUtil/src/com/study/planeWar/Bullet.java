@@ -1,14 +1,13 @@
 package com.study.planeWar;
 
-public class Bullet extends FlyObject implements BulletObject{
+public class Bullet extends FlyObject{
 
-	private int bulletType;
+
 	 /** 初始化数据 */
     public Bullet(int x,int y){
         this.x = x;
         this.y = y;
         this.sprite = PlaneGame.bullet;
-        bulletType = MY_BULLET;
         setSpeed(3);
     }
 	@Override
@@ -28,10 +27,6 @@ public class Bullet extends FlyObject implements BulletObject{
 		// TODO Auto-generated method stub
 		fly();
 	}
-	@Override
-	public int getType() {
-		// TODO Auto-generated method stub
-		return bulletType;
-	}
+
 
 }

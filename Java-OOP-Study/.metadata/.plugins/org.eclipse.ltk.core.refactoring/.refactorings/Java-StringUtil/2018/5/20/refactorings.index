@@ -16,3 +16,6 @@
 1526699308399	Copy compilation unit
 1526706332243	Extract method 'playerShootAction'
 1526708348336	Extract method 'enemyShootAction'
+1526714452765	Delete element
+1526714670720	Delete element
+1526718302470	Extract method 'deleteEnemyBulletHited'

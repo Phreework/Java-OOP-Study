@@ -23,21 +23,21 @@ import javax.swing.JPanel;
  */
 public class PlaneGame extends JPanel {
 
-	public static final int WIDTH = 400; 			// 宽
-	public static final int HEIGHT = 654; 			// 高
+	public static final int WIDTH = 400; // 宽
+	public static final int HEIGHT = 654; // 高
 
-	//状态机
+	// 状态机
 	private int state;
 	private static final int START = 0;
 	private static final int RUNNING = 1;
 	private static final int PAUSE = 2;
 	private static final int GAME_OVER = 3;
 
-	private int score = 0; 
-	private Timer timer; 							// 定时器
-	private int period = 10; 						// 线程执行间隔，10毫秒
+	private int score = 0;
+	private Timer timer; // 定时器
+	private int period = 10; // 线程执行间隔，10毫秒
 
-	//图片资源
+	// 图片资源
 	public static BufferedImage background;
 	public static BufferedImage start;
 	public static BufferedImage airplane;
@@ -51,7 +51,8 @@ public class PlaneGame extends JPanel {
 	public static BufferedImage enemybullet;
 
 	private FlyObject[] enemys = {}; // 敌机数组
-	private BulletObject[] bullets = {}; // 子弹数组
+	private Bullet[] bullets = {}; // 子弹数组
+	private EnemyBullet[] ebullets = {};
 	private Player player = new Player(); // 玩家对象
 
 	static { // 静态代码块，初始化图片资源
@@ -72,23 +73,21 @@ public class PlaneGame extends JPanel {
 		}
 	}
 
-	//主程序入口
+	// 主程序入口
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Game");
-		PlaneGame planegame = new PlaneGame(); 
-		frame.add(planegame); 
-		frame.setSize(WIDTH, HEIGHT); 							// 设置宽高
-		frame.setAlwaysOnTop(true); 							// 设置其总在最上
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 	// 默认关闭操作
-		frame.setLocationRelativeTo(null); 						// 设置窗体初始位置
+		PlaneGame planegame = new PlaneGame();
+		frame.add(planegame);
+		frame.setSize(WIDTH, HEIGHT); // 设置宽高
+		frame.setAlwaysOnTop(true); // 设置其总在最上
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 默认关闭操作
+		frame.setLocationRelativeTo(null); // 设置窗体初始位置
 		frame.setIconImage(new ImageIcon("images/icon.jpg").getImage()); // 设置窗体的图标
 		frame.setVisible(true); // 尽快调用paint
 
 		planegame.action(); // 启动执行
 	}
 
-
-	
 	@Override
 	public void paint(Graphics g) {
 		g.drawImage(background, 0, 0, null); // 画背景图
@@ -105,7 +104,11 @@ public class PlaneGame extends JPanel {
 
 	public void paintBullets(Graphics g) {
 		for (int i = 0; i < bullets.length; i++) {
-			Bullet b = (Bullet) bullets[i];
+			Bullet b = bullets[i];
+			g.drawImage(b.getSprite(), b.getX() - b.getWidth() / 2, b.getY(), null);
+		}
+		for (int i = 0; i < ebullets.length; i++) {
+			EnemyBullet b = ebullets[i];
 			g.drawImage(b.getSprite(), b.getX() - b.getWidth() / 2, b.getY(), null);
 		}
 	}
@@ -163,7 +166,7 @@ public class PlaneGame extends JPanel {
 
 			@Override
 			public void mouseExited(MouseEvent e) { // 鼠标退出
-				if (state != GAME_OVER && state != START) 
+				if (state != GAME_OVER && state != START)
 					state = PAUSE;
 			}
 
@@ -176,6 +179,7 @@ public class PlaneGame extends JPanel {
 				case GAME_OVER: // 游戏结束，清理现场
 					enemys = new FlyObject[0]; // 清空飞行物
 					bullets = new Bullet[0]; // 清空子弹
+					ebullets = new EnemyBullet[0];
 					player = new Player(); // 重新创建英雄机
 					score = 0; // 清空成绩
 					state = START; // 状态设置为启动
@@ -209,9 +213,10 @@ public class PlaneGame extends JPanel {
 	/** 飞行物生成 */
 	public void enterAction() {
 		flyEnteredIndex++;
-		if (flyEnteredIndex % 40 != 0) return;
-		
-		FlyObject obj = nextEnemy(); 					// 随机生成一个飞行物
+		if (flyEnteredIndex % 40 != 0)
+			return;
+
+		FlyObject obj = nextEnemy(); // 随机生成一个飞行物
 		enemys = Arrays.copyOf(enemys, enemys.length + 1);
 		enemys[enemys.length - 1] = obj;
 
@@ -225,7 +230,12 @@ public class PlaneGame extends JPanel {
 		}
 
 		for (int i = 0; i < bullets.length; i++) { // 子弹走一步
-			Bullet b = (Bullet) bullets[i];
+			Bullet b = bullets[i];
+			b.step();
+		}
+
+		for (int i = 0; i < ebullets.length; i++) { // 敌人子弹走一步
+			EnemyBullet b = ebullets[i];
 			b.step();
 		}
 		player.step(); // 英雄机走一步
@@ -240,44 +250,37 @@ public class PlaneGame extends JPanel {
 	}
 
 	int shootIndex = 0; // 射击计数
+
 	/** 射击 */
 	public void shootAction() {
-		playerShootAction();
-		enemyShootAction();
-	}
-
-
-
-	private void enemyShootAction() {
-		for(FlyObject e: enemys){
-			if (!(e instanceof SuperEnemy))continue;
-			if (e.getY() != 100) continue;
-			SuperEnemy superEnemy = (SuperEnemy)e;
-			
-			BulletObject[] be = superEnemy.shoot();
-			bullets = Arrays.copyOf(bullets, bullets.length + be.length); // 扩容
-			System.arraycopy(be, 0, bullets, bullets.length - be.length, be.length); // 追加数组
-	
-		}
-	}
-
-
-
-	private void playerShootAction() {
 		shootIndex++;
 		if (shootIndex % 30 == 0) { // 300毫秒发一颗
-			BulletObject[] bs = player.shoot(); // 英雄打出子弹
+			Bullet[] bs = player.shoot(); // 英雄打出子弹
 			bullets = Arrays.copyOf(bullets, bullets.length + bs.length); // 扩容
 			System.arraycopy(bs, 0, bullets, bullets.length - bs.length, bs.length); // 追加数组
+		}
+
+		for (FlyObject e : enemys) {
+			if (!(e instanceof SuperEnemy))
+				continue;
+			if (e.getY() != 50)
+				continue;
+			SuperEnemy se = (SuperEnemy) e;
+			EnemyBullet[] bs = se.shoot(); // 英雄打出子弹
+			ebullets = Arrays.copyOf(ebullets, ebullets.length + bs.length); // 扩容
+			System.arraycopy(bs, 0, ebullets, ebullets.length - bs.length, bs.length); // 追加数组
 		}
 	}
 
 	/** 子弹与飞行物碰撞检测 */
 	public void BulletHitAction() {
-		for (int i = 0; i < bullets.length; i++) { // 遍历所有子弹
-			Bullet b = (Bullet) bullets[i];
+		for (Bullet b : bullets) { // 遍历所有子弹
 			hit(b); // 子弹和飞行物之间的碰撞检查
 		}
+		for (EnemyBullet eb : ebullets) {
+			hitPlayer(eb);
+		}
+
 	}
 
 	/** 删除越界飞行物及子弹 */
@@ -295,12 +298,22 @@ public class PlaneGame extends JPanel {
 		index = 0; // 索引重置为0
 		Bullet[] bulletLives = new Bullet[bullets.length];
 		for (int i = 0; i < bullets.length; i++) {
-			Bullet b = (Bullet) bullets[i];
+			Bullet b = bullets[i];
 			if (!b.isOutScreen()) {
 				bulletLives[index++] = b;
 			}
 		}
 		bullets = Arrays.copyOf(bulletLives, index); // 将不越界的子弹留着
+
+		index = 0; // 索引重置为0
+		EnemyBullet[] ebulletLives = new EnemyBullet[ebullets.length];
+		for (int i = 0; i < ebullets.length; i++) {
+			EnemyBullet b = ebullets[i];
+			if (!b.isOutScreen()) {
+				ebulletLives[index++] = b;
+			}
+		}
+		ebullets = Arrays.copyOf(ebulletLives, index); // 将不越界的子弹留着
 	}
 
 	/** 检查游戏结束 */
@@ -325,8 +338,8 @@ public class PlaneGame extends JPanel {
 				FlyObject t = enemys[index];
 				enemys[index] = enemys[enemys.length - 1];
 				enemys[enemys.length - 1] = t; // 碰上的与最后一个飞行物交换
-
 				enemys = Arrays.copyOf(enemys, enemys.length - 1); // 删除碰上的飞行物
+
 			}
 		}
 
@@ -346,10 +359,16 @@ public class PlaneGame extends JPanel {
 		if (index != -1) { // 有击中的飞行物
 			FlyObject one = enemys[index]; // 记录被击中的飞行物
 
+			if (one instanceof SuperEnemy) {
+				if (((SuperEnemy) one).life != 0){
+					((SuperEnemy) one).life -= 1;
+					return;
+				} 
+			}
+			
 			FlyObject temp = enemys[index]; // 被击中的飞行物与最后一个飞行物交换
 			enemys[index] = enemys[enemys.length - 1];
 			enemys[enemys.length - 1] = temp;
-
 			enemys = Arrays.copyOf(enemys, enemys.length - 1); // 删除最后一个飞行物(即被击中的)
 
 			// 检查one的类型(敌人加分，奖励获取)
@@ -371,7 +390,34 @@ public class PlaneGame extends JPanel {
 			}
 		}
 	}
-	
+
+	public void hitPlayer(EnemyBullet eb) {
+		// TODO Auto-generated method stub
+		if (!player.isShootBy(eb))
+			return;
+
+		player.subtractLife();
+
+		deleteEnemyBulletHited(eb);
+
+	}
+
+	private void deleteEnemyBulletHited(EnemyBullet eb) {
+		int index = -1;
+		for (int i = 0; i < ebullets.length; i++) {
+			if (eb == ebullets[i]) {
+				index = i;
+				break;
+			}
+		}
+		if (index == -1)
+			return;
+		EnemyBullet e = ebullets[index];
+		ebullets[index] = ebullets[ebullets.length - 1];
+		ebullets[ebullets.length - 1] = e; // 碰上的与最后一个飞行物交换
+
+		ebullets = Arrays.copyOf(ebullets, ebullets.length - 1); // 删除碰上的飞行物
+	}
 
 	/**
 	 * 随机生成飞行物
@@ -380,13 +426,14 @@ public class PlaneGame extends JPanel {
 	 */
 	public static FlyObject nextEnemy() {
 		Random random = new Random();
-		int type = random.nextInt(25); 
+		int type = random.nextInt(22);
 		if (type == 0) {
 			return new Bee();
-		} else if (type == 1){
-			return new NormalEnemy();
-		} else {
+		} else if (type >= 1 && type <= 2) {
 			return new SuperEnemy();
+		} else {
+			return new NormalEnemy();
 		}
 	}
+
 }

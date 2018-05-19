@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * @author Phree
  *
  */
-public class Player extends FlyObject implements Attack {
+public class Player extends FlyObject {
     private BufferedImage[] sprites;
     private int index;
     private int doubleFire;
@@ -65,7 +65,7 @@ public class Player extends FlyObject implements Attack {
     }
     
     /** ·¢Éä×Óµ¯ */
-    public BulletObject[] shoot(){   
+    public Bullet[] shoot(){   
         int xStep = width/4;      //4°ë
         int yStep = 20;  //²½
         if(doubleFire>0){  //Ë«±¶»ðÁ¦
@@ -73,18 +73,18 @@ public class Player extends FlyObject implements Attack {
             bullets[0] = new Bullet(x+xStep,y-yStep);  
             bullets[1] = new Bullet(x+3*xStep,y-yStep);
             doubleFire --;
-            return (BulletObject[])bullets;
+            return (Bullet[])bullets;
 
         }else{      //µ¥±¶»ðÁ¦
             Bullet[] bullets = new Bullet[1];
             bullets[0] = new Bullet(x+2*xStep,y-yStep);  
-            return (BulletObject[])bullets;
+            return (Bullet[])bullets;
         }
     }
 	@Override
 	public void fly() {
 		// TODO Auto-generated method stub
-		 if(sprites.length>0){
+		 if(sprites.length > 0){
 			 sprite = sprites[index++/10%sprites.length];  //ÇÐ»»
 	     }
 	}

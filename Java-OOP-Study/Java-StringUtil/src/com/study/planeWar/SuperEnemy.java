@@ -2,8 +2,9 @@ package com.study.planeWar;
 
 import java.util.Random;
 
-public class SuperEnemy extends Enemy implements Attack {
+public class SuperEnemy extends Enemy {
 
+	int life = 100;
 	public SuperEnemy() {
 		this.sprite = PlaneGame.superenemy;
 		width = sprite.getWidth();
@@ -32,15 +33,14 @@ public class SuperEnemy extends Enemy implements Attack {
 		fly();
 	}
 
-	@Override
-	public BulletObject[] shoot() {
+	public EnemyBullet[] shoot() {
 		// TODO Auto-generated method stub
 		int xStep = width / 4; // 4°ë
 		int yStep = 20; // ²½
 
 		EnemyBullet[] bullets = new EnemyBullet[1];
-		bullets[0] = new EnemyBullet(x + 2 * xStep, y + yStep);
-		return (BulletObject[]) bullets;
+		bullets[0] = new EnemyBullet(x + 2 * xStep, y + width + yStep);
+		return bullets;
 	}
 
 }

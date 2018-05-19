@@ -81,6 +81,12 @@ public abstract class FlyObject implements MoveBehaviour {
         return this.x<x && x<this.x+width && this.y<y && y<this.y+height;
     }
     
+    public boolean isShootBy(EnemyBullet bullet){
+    	int x = bullet.x;  //子弹横坐标
+        int y = bullet.y;  //子弹纵坐标
+        return this.x<x && x<this.x+width && this.y<y && y<this.y+height;
+    }
+    
 
 
 }
