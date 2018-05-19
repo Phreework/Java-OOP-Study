@@ -51,7 +51,7 @@ public class PlaneGame extends JPanel {
 	public static BufferedImage enemybullet;
 
 	private FlyObject[] enemys = {}; // 敌机数组
-	private Bullet[] bullets = {}; // 子弹数组
+	private BulletObject[] bullets = {}; // 子弹数组
 	private Player player = new Player(); // 玩家对象
 
 	static { // 静态代码块，初始化图片资源
@@ -105,7 +105,7 @@ public class PlaneGame extends JPanel {
 
 	public void paintBullets(Graphics g) {
 		for (int i = 0; i < bullets.length; i++) {
-			Bullet b = bullets[i];
+			Bullet b = (Bullet) bullets[i];
 			g.drawImage(b.getSprite(), b.getX() - b.getWidth() / 2, b.getY(), null);
 		}
 	}
@@ -225,7 +225,7 @@ public class PlaneGame extends JPanel {
 		}
 
 		for (int i = 0; i < bullets.length; i++) { // 子弹走一步
-			Bullet b = bullets[i];
+			Bullet b = (Bullet) bullets[i];
 			b.step();
 		}
 		player.step(); // 英雄机走一步
@@ -240,9 +240,30 @@ public class PlaneGame extends JPanel {
 	}
 
 	int shootIndex = 0; // 射击计数
-
 	/** 射击 */
 	public void shootAction() {
+		playerShootAction();
+		enemyShootAction();
+	}
+
+
+
+	private void enemyShootAction() {
+		for(FlyObject e: enemys){
+			if (!(e instanceof SuperEnemy))continue;
+			if (e.getY() != 100) continue;
+			SuperEnemy superEnemy = (SuperEnemy)e;
+			
+			BulletObject[] be = superEnemy.shoot();
+			bullets = Arrays.copyOf(bullets, bullets.length + be.length); // 扩容
+			System.arraycopy(be, 0, bullets, bullets.length - be.length, be.length); // 追加数组
+	
+		}
+	}
+
+
+
+	private void playerShootAction() {
 		shootIndex++;
 		if (shootIndex % 30 == 0) { // 300毫秒发一颗
 			BulletObject[] bs = player.shoot(); // 英雄打出子弹
@@ -254,7 +275,7 @@ public class PlaneGame extends JPanel {
 	/** 子弹与飞行物碰撞检测 */
 	public void BulletHitAction() {
 		for (int i = 0; i < bullets.length; i++) { // 遍历所有子弹
-			Bullet b = bullets[i];
+			Bullet b = (Bullet) bullets[i];
 			hit(b); // 子弹和飞行物之间的碰撞检查
 		}
 	}
@@ -274,7 +295,7 @@ public class PlaneGame extends JPanel {
 		index = 0; // 索引重置为0
 		Bullet[] bulletLives = new Bullet[bullets.length];
 		for (int i = 0; i < bullets.length; i++) {
-			Bullet b = bullets[i];
+			Bullet b = (Bullet) bullets[i];
 			if (!b.isOutScreen()) {
 				bulletLives[index++] = b;
 			}
@@ -363,9 +384,9 @@ public class PlaneGame extends JPanel {
 		if (type == 0) {
 			return new Bee();
 		} else if (type == 1){
-			return new SuperEnemy();
-		} else {
 			return new NormalEnemy();
+		} else {
+			return new SuperEnemy();
 		}
 	}
 }
