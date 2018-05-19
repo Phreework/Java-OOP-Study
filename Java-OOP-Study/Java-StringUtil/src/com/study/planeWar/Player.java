@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * @author Phree
  *
  */
-public class Player extends FlyObject {
+public class Player extends FlyObject implements Attack {
     private BufferedImage[] sprites;
     private int index;
     private int doubleFire;
@@ -17,19 +17,23 @@ public class Player extends FlyObject {
     	life = 3;   //初始3条命
         doubleFire = 0;   //初始火力为0
         sprites = new BufferedImage[]{PlaneGame.player0, PlaneGame.player1}; //英雄机图片数组
-        sprite = PlaneGame.player0;   //初始为hero0图片
+        sprite = PlaneGame.player0;   //初始为0
         width = sprite.getWidth();
         height = sprite.getHeight();
         x = 150;
         y = 400;
     }
     
-    /** 获取双倍火力 */
+    /** 
+     * 获取双倍火力
+     */
     public int isDoubleFire() {
         return doubleFire;
     }
 
-    /** 设置双倍火力 */
+    /**
+     *  设置双倍火力 
+     */
     public void setDoubleFire(int doubleFire) {
         this.doubleFire = doubleFire;
     }
@@ -40,12 +44,12 @@ public class Player extends FlyObject {
     }
 
     /** 增命 */
-    public void addLife(){  //增命
+    public void addLife(){  
         life++;
     }
 
     /** 减命 */
-    public void subtractLife(){   //减命
+    public void subtractLife(){ 
         life--;
     }
 
@@ -61,25 +65,27 @@ public class Player extends FlyObject {
     }
     
     /** 发射子弹 */
-    public Bullet[] shoot(){   
+    public BulletObject[] shoot(){   
         int xStep = width/4;      //4半
         int yStep = 20;  //步
         if(doubleFire>0){  //双倍火力
             Bullet[] bullets = new Bullet[2];
-            bullets[0] = new Bullet(x+xStep,y-yStep);  //y-yStep(子弹距飞机的位置)
+            bullets[0] = new Bullet(x+xStep,y-yStep);  
             bullets[1] = new Bullet(x+3*xStep,y-yStep);
-            return bullets;
+            doubleFire --;
+            return (BulletObject[])bullets;
+
         }else{      //单倍火力
             Bullet[] bullets = new Bullet[1];
             bullets[0] = new Bullet(x+2*xStep,y-yStep);  
-            return bullets;
+            return (BulletObject[])bullets;
         }
     }
 	@Override
 	public void fly() {
 		// TODO Auto-generated method stub
 		 if(sprites.length>0){
-			 sprite = sprites[index++/10%sprites.length];  //切换图片hero0，hero1
+			 sprite = sprites[index++/10%sprites.length];  //切换
 	     }
 	}
 

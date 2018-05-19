@@ -2,12 +2,16 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="enemys" key="selection"/>
+		<item value="index" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="getIndex"/>
+			<item value="index"/>
+			<item value="destroy"/>
+			<item value="interval"/>
 			<item value="flyings"/>
 			<item value="enemys"/>
 			<item value="game"/>
@@ -18,6 +22,7 @@
 			<item value="player0"/>
 		</list>
 		<list key="replacehistory">
+			<item value="period"/>
 			<item value="enemys"/>
 			<item value="planegame"/>
 			<item value="interval"/>
@@ -29,9 +34,9 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="356" key="DIALOG_WIDTH"/>
-		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
-		<item value="452" key="DIALOG_HEIGHT"/>
+		<item value="405" key="DIALOG_WIDTH"/>
+		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
+		<item value="511" key="DIALOG_HEIGHT"/>
 		<item value="1324" key="DIALOG_X_ORIGIN"/>
 		<item value="419" key="DIALOG_Y_ORIGIN"/>
 	</section>

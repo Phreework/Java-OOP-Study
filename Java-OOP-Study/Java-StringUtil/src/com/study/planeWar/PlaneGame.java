@@ -16,10 +16,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Phree
+ *
+ */
 public class PlaneGame extends JPanel {
 
-	public static final int WIDTH = 400; // 面板宽
-	public static final int HEIGHT = 654; // 面板高
+	public static final int WIDTH = 400; 			// 宽
+	public static final int HEIGHT = 654; 			// 高
 
 	//状态机
 	private int state;
@@ -28,10 +33,11 @@ public class PlaneGame extends JPanel {
 	private static final int PAUSE = 2;
 	private static final int GAME_OVER = 3;
 
-	private int score = 0; // 得分
-	private Timer timer; // 定时器
-	private int interval = 1000 / 100; // 时间间隔(毫秒)
+	private int score = 0; 
+	private Timer timer; 							// 定时器
+	private int period = 10; 						// 线程执行间隔，10毫秒
 
+	//图片资源
 	public static BufferedImage background;
 	public static BufferedImage start;
 	public static BufferedImage airplane;
@@ -41,10 +47,12 @@ public class PlaneGame extends JPanel {
 	public static BufferedImage player1;
 	public static BufferedImage pause;
 	public static BufferedImage gameover;
+	public static BufferedImage superenemy;
+	public static BufferedImage enemybullet;
 
 	private FlyObject[] enemys = {}; // 敌机数组
 	private Bullet[] bullets = {}; // 子弹数组
-	private Player player = new Player(); // 英雄机
+	private Player player = new Player(); // 玩家对象
 
 	static { // 静态代码块，初始化图片资源
 		try {
@@ -57,6 +65,8 @@ public class PlaneGame extends JPanel {
 			player1 = ImageIO.read(PlaneGame.class.getResource("/player1.png"));
 			pause = ImageIO.read(PlaneGame.class.getResource("/pause.png"));
 			gameover = ImageIO.read(PlaneGame.class.getResource("/gameover.png"));
+			superenemy = ImageIO.read(PlaneGame.class.getResource("/superenemy.png"));
+			enemybullet = ImageIO.read(PlaneGame.class.getResource("/enemybullet.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,13 +75,13 @@ public class PlaneGame extends JPanel {
 	//主程序入口
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Game");
-		PlaneGame planegame = new PlaneGame(); // 面板对象
-		frame.add(planegame); // 将面板添加到JFrame中
-		frame.setSize(WIDTH, HEIGHT); // 设置大小
-		frame.setAlwaysOnTop(true); // 设置其总在最上
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 默认关闭操作
+		PlaneGame planegame = new PlaneGame(); 
+		frame.add(planegame); 
+		frame.setSize(WIDTH, HEIGHT); 							// 设置宽高
+		frame.setAlwaysOnTop(true); 							// 设置其总在最上
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 	// 默认关闭操作
+		frame.setLocationRelativeTo(null); 						// 设置窗体初始位置
 		frame.setIconImage(new ImageIcon("images/icon.jpg").getImage()); // 设置窗体的图标
-		frame.setLocationRelativeTo(null); // 设置窗体初始位置
 		frame.setVisible(true); // 尽快调用paint
 
 		planegame.action(); // 启动执行
@@ -89,12 +99,10 @@ public class PlaneGame extends JPanel {
 		paintState(g); // 画游戏状态
 	}
 
-	/** 画英雄机 */
 	public void paintplayer(Graphics g) {
 		g.drawImage(player.getSprite(), player.getX(), player.getY(), null);
 	}
 
-	/** 画子弹 */
 	public void paintBullets(Graphics g) {
 		for (int i = 0; i < bullets.length; i++) {
 			Bullet b = bullets[i];
@@ -102,7 +110,6 @@ public class PlaneGame extends JPanel {
 		}
 	}
 
-	/** 画飞行物 */
 	public void paintFlyObjects(Graphics g) {
 		for (int i = 0; i < enemys.length; i++) {
 			FlyObject f = enemys[i];
@@ -110,7 +117,6 @@ public class PlaneGame extends JPanel {
 		}
 	}
 
-	/** 画分数 */
 	public void paintScore(Graphics g) {
 		int x = 10; // x坐标
 		int y = 25; // y坐标
@@ -122,7 +128,6 @@ public class PlaneGame extends JPanel {
 		g.drawString("LIFE:" + player.getLife(), x, y); // 画命
 	}
 
-	/** 画游戏状态 */
 	public void paintState(Graphics g) {
 		switch (state) {
 		case START: // 启动状态
@@ -137,7 +142,6 @@ public class PlaneGame extends JPanel {
 		}
 	}
 
-	/** 启动执行代码 */
 	public void action() {
 		// 鼠标监听事件
 		MouseAdapter l = new MouseAdapter() {
@@ -159,9 +163,8 @@ public class PlaneGame extends JPanel {
 
 			@Override
 			public void mouseExited(MouseEvent e) { // 鼠标退出
-				if (state != GAME_OVER && state != START) { // 游戏未结束，则设置其为暂停
+				if (state != GAME_OVER && state != START) 
 					state = PAUSE;
-				}
 			}
 
 			@Override
@@ -180,8 +183,8 @@ public class PlaneGame extends JPanel {
 				}
 			}
 		};
-		this.addMouseListener(l); // 处理鼠标点击操作
-		this.addMouseMotionListener(l); // 处理鼠标滑动操作
+		this.addMouseListener(l); // 鼠标监听
+		this.addMouseMotionListener(l); // 鼠标滑动
 
 		timer = new Timer(); // 主流程控制
 		timer.schedule(new TimerTask() {
@@ -198,19 +201,20 @@ public class PlaneGame extends JPanel {
 				repaint(); // 重绘，调用paint()方法
 			}
 
-		}, interval, interval);
+		}, period, period);
 	}
 
 	int flyEnteredIndex = 0; // 飞行物入场计数
 
-	/** 飞行物入场 */
+	/** 飞行物生成 */
 	public void enterAction() {
 		flyEnteredIndex++;
-		if (flyEnteredIndex % 40 == 0) { // 400毫秒生成一个飞行物--10*40
-			FlyObject obj = nextOne(); // 随机生成一个飞行物
-			enemys = Arrays.copyOf(enemys, enemys.length + 1);
-			enemys[enemys.length - 1] = obj;
-		}
+		if (flyEnteredIndex % 40 != 0) return;
+		
+		FlyObject obj = nextEnemy(); 					// 随机生成一个飞行物
+		enemys = Arrays.copyOf(enemys, enemys.length + 1);
+		enemys[enemys.length - 1] = obj;
+
 	}
 
 	/** 步事件 */
@@ -241,7 +245,7 @@ public class PlaneGame extends JPanel {
 	public void shootAction() {
 		shootIndex++;
 		if (shootIndex % 30 == 0) { // 300毫秒发一颗
-			Bullet[] bs = player.shoot(); // 英雄打出子弹
+			BulletObject[] bs = player.shoot(); // 英雄打出子弹
 			bullets = Arrays.copyOf(bullets, bullets.length + bs.length); // 扩容
 			System.arraycopy(bs, 0, bullets, bullets.length - bs.length, bs.length); // 追加数组
 		}
@@ -346,17 +350,20 @@ public class PlaneGame extends JPanel {
 			}
 		}
 	}
+	
 
 	/**
 	 * 随机生成飞行物
 	 * 
 	 * @return 飞行物对象
 	 */
-	public static FlyObject nextOne() {
+	public static FlyObject nextEnemy() {
 		Random random = new Random();
-		int type = random.nextInt(20); // [0,20)
+		int type = random.nextInt(25); 
 		if (type == 0) {
 			return new Bee();
+		} else if (type == 1){
+			return new SuperEnemy();
 		} else {
 			return new NormalEnemy();
 		}

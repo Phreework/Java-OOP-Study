@@ -1,0 +1,29 @@
+package com.study.planeWar;
+
+public class SuperEnemy extends Enemy implements Attack {
+
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attack() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOutScreen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

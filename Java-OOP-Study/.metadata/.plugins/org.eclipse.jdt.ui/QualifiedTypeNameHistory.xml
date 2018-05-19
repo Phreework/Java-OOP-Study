@@ -11,4 +11,6 @@
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
 <fullyQualifiedTypeName name="com.study.innerClass.Mama.Baby"/>
+<fullyQualifiedTypeName name="com.study.planeWar.FlyObject"/>
+<fullyQualifiedTypeName name="javax.xml.stream.events.EndElement"/>
 </qualifiedTypeNameHistroy>
