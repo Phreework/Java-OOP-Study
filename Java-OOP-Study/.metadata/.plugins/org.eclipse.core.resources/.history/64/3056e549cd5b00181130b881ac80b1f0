@@ -117,7 +117,7 @@ public class Player extends FlyObject {
         int playerx = this.x + this.width/2;               //英雄机x坐标中心点距离
         int playery = this.y + this.height/2;              //英雄机y坐标中心点距离
 
-        return playerx>x1 && playerx<x2 && playery>y1 && playery<y2;   //区间范围内为碰撞
+        return playerx>x1 && playerx<x2 && playery>y1 && playery<y2;   //区间范围内为撞上了
     }
 
 }

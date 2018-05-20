@@ -18,7 +18,8 @@ import javax.swing.JPanel;
 
 /**
  * 
- * @author Phree 
+ * @author Phree
+ *
  */
 public class PlaneGame extends JPanel {
 
@@ -36,8 +37,6 @@ public class PlaneGame extends JPanel {
 	private Timer timer; // 定时器对象
 	private int period = 10; // 线程执行间隔，10毫秒
 
-	//负责游戏难度的管理
-	private static GameManager gameManager;
 	// 游戏等级
 	private static final int LEVEL_EASY = 0;
 	private static final int LEVEL_NORMAL = 1;
@@ -417,12 +416,11 @@ public class PlaneGame extends JPanel {
 	 * 随机生成敌人 
 	 */
 	public static FlyObject nextEnemy() {
-		return gameManager.getNextEnemy();
+
 		addSuperEnemyChance();
 
 		Random random = new Random();
 		int type = random.nextInt(22);
-		
 		if (type == 0) {
 			return new Bee();
 		} else if (type >= 1 && type < range) {
@@ -439,9 +437,9 @@ public class PlaneGame extends JPanel {
 	}
 
 	
-	//以下方法皆为提高可读性所做重构方法
 	
-	/**Extra Method 删除发生碰撞的子弹*/
+	
+
 	private void deleteBulletHited(Bullet bullet) {
 		for (int i = 0; i < bullets.length; i++) {
 			if (bullets[i] != bullet)
@@ -452,7 +450,7 @@ public class PlaneGame extends JPanel {
 			bullets = Arrays.copyOf(bullets, bullets.length - 1); // 删除被击中的飞行物
 		}
 	}
-	/**Extra Method 玩家得分与奖励*/
+
 	private void getScoreAndAward(FlyObject fly) {
 		if (fly instanceof Enemy) {
 			Enemy e = (Enemy) fly;
@@ -471,14 +469,14 @@ public class PlaneGame extends JPanel {
 			}
 		}
 	}
-	/**Extra Method 删除发生碰撞的敌机*/
+
 	private void deleteEnemyHited(int index) {
 		FlyObject temp = enemys[index]; // 被击中的飞行物与最后一交换
 		enemys[index] = enemys[enemys.length - 1];
 		enemys[enemys.length - 1] = temp;
 		enemys = Arrays.copyOf(enemys, enemys.length - 1); // 删除被击中的飞行物
 	}
-	/**Extra Method 玩家碰撞检测*/
+
 	private void hitPlayer(EnemyBullet eb) {
 		// TODO Auto-generated method stub
 		if (!player.isShootBy(eb))
@@ -489,7 +487,7 @@ public class PlaneGame extends JPanel {
 		deleteEnemyBulletHited(eb);
 
 	}
-	/**Extra Method 删除发生碰撞的敌方子弹*/
+
 	private void deleteEnemyBulletHited(EnemyBullet eb) {
 		int index = -1;
 		for (int i = 0; i < ebullets.length; i++) {
@@ -506,7 +504,9 @@ public class PlaneGame extends JPanel {
 
 		ebullets = Arrays.copyOf(ebullets, ebullets.length - 1); // 删除碰上的飞行物
 	}
-	/**Extra Method 增大超级敌机的机会*/
+
+
+
 	private static void addSuperEnemyChance() {
 		switch (rank) {
 		case LEVEL_EASY:

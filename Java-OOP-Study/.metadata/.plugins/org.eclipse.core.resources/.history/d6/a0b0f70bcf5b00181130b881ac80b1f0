@@ -18,7 +18,8 @@ import javax.swing.JPanel;
 
 /**
  * 
- * @author Phree 
+ * @author Phree
+ *
  */
 public class PlaneGame extends JPanel {
 
@@ -36,8 +37,6 @@ public class PlaneGame extends JPanel {
 	private Timer timer; // 定时器对象
 	private int period = 10; // 线程执行间隔，10毫秒
 
-	//负责游戏难度的管理
-	private static GameManager gameManager;
 	// 游戏等级
 	private static final int LEVEL_EASY = 0;
 	private static final int LEVEL_NORMAL = 1;
@@ -417,12 +416,11 @@ public class PlaneGame extends JPanel {
 	 * 随机生成敌人 
 	 */
 	public static FlyObject nextEnemy() {
-		return gameManager.getNextEnemy();
+
 		addSuperEnemyChance();
 
 		Random random = new Random();
 		int type = random.nextInt(22);
-		
 		if (type == 0) {
 			return new Bee();
 		} else if (type >= 1 && type < range) {

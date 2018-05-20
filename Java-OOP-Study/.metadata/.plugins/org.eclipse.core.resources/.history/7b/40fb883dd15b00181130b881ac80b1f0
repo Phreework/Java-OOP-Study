@@ -36,7 +36,6 @@ public class PlaneGame extends JPanel {
 	private Timer timer; // 定时器对象
 	private int period = 10; // 线程执行间隔，10毫秒
 
-	//负责游戏难度的管理
 	private static GameManager gameManager;
 	// 游戏等级
 	private static final int LEVEL_EASY = 0;
