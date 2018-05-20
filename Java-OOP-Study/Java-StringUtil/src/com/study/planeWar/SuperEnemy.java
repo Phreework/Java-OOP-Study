@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class SuperEnemy extends Enemy {
 
-	int life = 5;
-	public SuperEnemy() {
+	int life = 4;
+	public SuperEnemy(int rank) {
 		this.sprite = PlaneGame.superenemy;
 		width = sprite.getWidth();
 		height = sprite.getHeight();
@@ -14,17 +14,7 @@ public class SuperEnemy extends Enemy {
 		x = rand.nextInt(PlaneGame.WIDTH - width);
 		this.setScore(10);
 		this.setSpeed(1);
-	}
-	public SuperEnemy(int life) {
-		this.sprite = PlaneGame.superenemy;
-		width = sprite.getWidth();
-		height = sprite.getHeight();
-		y = -height;
-		Random rand = new Random();
-		x = rand.nextInt(PlaneGame.WIDTH - width);
-		this.setScore(10);
-		this.setSpeed(1);
-		this.life = life;
+		this.life = this.life + rank*2;
 	}
 
 	@Override

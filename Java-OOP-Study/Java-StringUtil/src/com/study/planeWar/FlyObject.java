@@ -2,7 +2,7 @@ package com.study.planeWar;
 
 import java.awt.image.BufferedImage;
 
-public abstract class FlyObject implements MoveBehaviour {
+public abstract class FlyObject{
     protected int x;
     protected int y;
     protected int width;
@@ -64,7 +64,7 @@ public abstract class FlyObject implements MoveBehaviour {
      */
 	public abstract boolean isOutScreen();
 
-	  /**
+	 /**
      * 帧的步事件
      */
     public abstract void step();
@@ -87,6 +87,6 @@ public abstract class FlyObject implements MoveBehaviour {
         return this.x<x && x<this.x+width && this.y<y && y<this.y+height;
     }
     
-
+    public abstract void fly();
 
 }

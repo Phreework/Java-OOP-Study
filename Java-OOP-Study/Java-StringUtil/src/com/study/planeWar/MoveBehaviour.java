@@ -5,3 +5,4 @@ public interface MoveBehaviour {
     public void fly();
 
 }
+

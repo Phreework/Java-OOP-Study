@@ -1,0 +1,36 @@
+package com.study.planeWar;
+
+public class GameManager {
+	// 游戏等级
+	private static final int LEVEL_EASY = 0;
+	private static final int LEVEL_NORMAL = 1;
+	private static final int LEVEL_DIFF = 2;
+	private int rank = LEVEL_EASY;
+	private static final String[] rankInfo = {"简单","普通","困难"};
+	
+	public FlyObject getNextEnemy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getRankinfo() {
+		return rankInfo[rank];
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
+	public void checkRank() {
+		// TODO Auto-generated method stub
+		if (score >= 500 && score <= 1000)
+			rank = LEVEL_NORMAL;
+		else if (score > 1000)
+			rank = LEVEL_DIFF;
+	}
+
+}

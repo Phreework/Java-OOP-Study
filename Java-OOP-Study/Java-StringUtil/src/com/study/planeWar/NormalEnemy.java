@@ -8,9 +8,10 @@ import java.util.Random;
 public class NormalEnemy extends Enemy {
 
 	/**
-	 * 普通难度构造
+	 * 根据难度等级rank增加构造出的敌人速度
+	 * @param rank
 	 */
-	public NormalEnemy() {
+	public NormalEnemy(int rank) {
 		this.sprite = PlaneGame.airplane; // 等待修改
 		width = sprite.getWidth();
 		height = sprite.getHeight();
@@ -18,23 +19,7 @@ public class NormalEnemy extends Enemy {
 		Random rand = new Random();
 		x = rand.nextInt(PlaneGame.WIDTH - width);
 		this.setScore(5);
-		this.setSpeed(3);
-	}
-
-	/**
-	 * 困难难度调用构造增加速度
-	 * @param spd
-	 */
-	public NormalEnemy(int spd) {
-		this.sprite = PlaneGame.airplane; // 等待修改
-		width = sprite.getWidth();
-		height = sprite.getHeight();
-		y = -height;
-		Random rand = new Random();
-		x = rand.nextInt(PlaneGame.WIDTH - width);
-		this.setScore(5);
-		this.setSpeed(3);
-		this.setSpeed(spd);
+		this.setSpeed(2 + rank);
 	}
 
 	@Override

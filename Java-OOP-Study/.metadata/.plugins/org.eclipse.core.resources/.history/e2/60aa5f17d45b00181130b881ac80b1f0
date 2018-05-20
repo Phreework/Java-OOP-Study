@@ -1,0 +1,75 @@
+package com.study.planeWar;
+
+import java.util.Random;
+
+public class GameManager {
+	// 游戏等级
+	private static final int LEVEL_EASY = 0;
+	private static final int LEVEL_NORMAL = 1;
+	private static final int LEVEL_DIFF = 2;
+	private int rank = LEVEL_EASY;
+	private static final String[] rankInfo = { "简单", "普通", "困难" };
+	private int range = 2;
+
+	public FlyObject getNextEnemy() {
+		switch (rank) {
+		case LEVEL_EASY:
+			range = 2;
+			break;
+		case LEVEL_NORMAL:
+			range = 3;
+			break;
+		case LEVEL_DIFF:
+			range = 4;
+			break;
+		default:
+			range = 2;
+			break;
+		}
+
+		Random random = new Random();
+		int type = random.nextInt(22);
+
+		if (type == 0) {
+			return new Bee();
+		} else if (type >= 1 && type < range) {
+			if (rank == LEVEL_DIFF) {
+				return new SuperEnemy(7);
+			}
+			return new SuperEnemy();
+		} else {
+			if (rank == LEVEL_DIFF) {
+				return new NormalEnemy(4);
+			}
+			return new NormalEnemy();
+		}
+	}
+
+	public String getRankinfo() {
+		return rankInfo[rank];
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
+	public void checkRank(int score) {
+		//使用卫语句，rank改变时只会执行一次，可提高性能
+		if (score <= 500)
+			return;
+
+		if ((score >= 500 && score <= 1000) && (rank == LEVEL_EASY)) {
+			rank = LEVEL_NORMAL;
+			range = 3;
+		}
+		
+		if ((score > 1000) && (rank == LEVEL_NORMAL)) {
+			rank = LEVEL_DIFF;
+			range = 4;
+	}
+
+}
